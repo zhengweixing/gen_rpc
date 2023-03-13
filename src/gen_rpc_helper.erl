@@ -141,13 +141,11 @@ get_client_driver_options(Driver) when is_atom(Driver) ->
     {DriverMod, ClosedMsg, ErrorMsg}.
 
 -spec get_client_config_per_node(node_or_tuple()) -> {atom(), inet:port_number()} | {error, {atom(), term()}}.
-get_client_config_per_node({Node, _Key}) ->
-    get_client_config_per_node(Node);
-get_client_config_per_node(Node) when is_atom(Node) ->
+get_client_config_per_node(NodeTuple) when is_atom(Node) ->
     {ok, NodeConfig} = application:get_env(?APP, client_config_per_node),
     case NodeConfig of
         {external, Module} when is_atom(Module) ->
-            try Module:get_config(Node) of
+            try Module:get_config(NodeTuple) of
                 {Driver, Port} when is_atom(Driver), is_integer(Port), Port > 0 ->
                     {Driver, Port};
                 {error, Reason} ->
@@ -157,7 +155,7 @@ get_client_config_per_node(Node) when is_atom(Node) ->
                     {error, {Class,Reason}}
             end;
         {internal, NodeMap} ->
-            get_client_config_from_map(Node, NodeMap)
+            get_client_config_from_map(NodeTuple, NodeMap)
     end.
 
 -spec get_connect_timeout() -> timeout().

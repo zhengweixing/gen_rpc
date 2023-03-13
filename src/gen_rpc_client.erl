@@ -229,12 +229,9 @@ sbcast(Nodes, Name, Msg) when is_list(Nodes), is_atom(Name) ->
 %%% ===================================================
 %% If we're called with a key, remove it, the key is only relevant
 %% at the process name level
-init({{Node,_Key}}) ->
-    init({Node});
-
-init({Node}) ->
+init({{Key, Node}}) ->
     ok = gen_rpc_helper:set_optimal_process_flags(),
-    case gen_rpc_helper:get_client_config_per_node(Node) of
+    case gen_rpc_helper:get_client_config_per_node({Key, Node}) of
         {error, Reason} ->
             ?log(error, "event=external_source_error action=falling_back_to_local reason=\"~s\"", [Reason]),
             {stop, {badrpc, {external_source_error, Reason}}};
