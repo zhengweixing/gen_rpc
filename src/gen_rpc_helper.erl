@@ -141,7 +141,7 @@ get_client_driver_options(Driver) when is_atom(Driver) ->
     {DriverMod, ClosedMsg, ErrorMsg}.
 
 -spec get_client_config_per_node(node_or_tuple()) -> {atom(), inet:port_number()} | {error, {atom(), term()}}.
-get_client_config_per_node(NodeTuple) when is_atom(Node) ->
+get_client_config_per_node(NodeTuple) when is_atom(NodeTuple) ->
     {ok, NodeConfig} = application:get_env(?APP, client_config_per_node),
     case NodeConfig of
         {external, Module} when is_atom(Module) ->
