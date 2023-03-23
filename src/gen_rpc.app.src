@@ -28,13 +28,13 @@
         %% Default TCP port for outgoing connections
         {tcp_client_port, 5369},
         %% SSL server port. Set to false to disable
-        {ssl_server_port, false},
+%%        {ssl_server_port, false},
         %% SSL server options
-        {ssl_server_options, []},
+%%        {ssl_server_options, []},
         %% Default SSL port for outgoing connections
-        {ssl_client_port, 5370},
+%%        {ssl_client_port, 5370},
         %% SSL client options
-        {ssl_client_options, []},
+%%        {ssl_client_options, []},
         %% Default driver to use for outgoing connections
         {default_client_driver, tcp},
         %% Fine-graned driver/port control
